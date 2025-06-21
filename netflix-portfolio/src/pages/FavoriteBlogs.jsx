@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
 import algomaster from "../assets/algomaster.png";
 import tldr from "../assets/tldr.png";
 import wired from "../assets/wired.png";
@@ -44,45 +45,112 @@ const blogs = [
 const FavoriteBlogs = () => {
   const navigate = useNavigate();
   const title = "Favorite Blogs".split("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-16">
+    <div className="min-h-screen bg-black text-white px-4 md:px-10 py-16 pt-28 relative overflow-hidden">
       {/* Header */}
-      <header className="absolute top-0 left-0 w-full flex items-center justify-between px-6 py-4 bg-[#111] text-sm font-medium z-20">
-        <div className="text-red-600 text-xl font-bold tracking-wide">
+      <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
+        <div
+          onClick={() => navigate("/recruiter")}
+          className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
+        >
           SHISHIR YADAV
         </div>
-        <nav className="hidden md:flex gap-6 text-white">
-          <a href="#" className="hover:text-red-400">
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Home
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Professional
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Skills
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Projects
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Hire Me
-          </a>
+          </span>
         </nav>
-        <div
-          className="w-8 h-8 rounded-full cursor-pointer overflow-hidden hover:opacity-80 transition"
-          onClick={() => navigate("/recruiter")}
-          title="Back to Browse"
-        >
-          <img
-            src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
-            alt="Back Avatar"
-            className="w-full h-full object-cover"
-          />
+
+        {/* Avatar + Mobile Menu */}
+        <div className="flex items-center gap-4">
+          <button
+            className="md:hidden text-white text-lg"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FaBars />
+          </button>
+          <div
+            className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
+            onClick={() => navigate("/recruiter")}
+            title="Go to Home"
+          >
+            <img
+              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              alt="Avatar"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </header>
 
-      {/* Animated Title */}
+      {/* Mobile Menu Dropdown */}
+      {menuOpen && (
+        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Home
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Professional
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Skills
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Projects
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Hire Me
+          </span>
+        </div>
+      )}
+
+      {/* Animated Heading */}
       <motion.h1
         className="relative z-10 flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-16 tracking-wide"
         initial="hidden"

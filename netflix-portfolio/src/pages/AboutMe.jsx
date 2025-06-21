@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FaBars } from "react-icons/fa";
 
 import pic1 from "../assets/pic1.jpeg";
 import pic2 from "../assets/pic2.jpeg";
@@ -11,15 +12,10 @@ const images = [pic1, pic2, pic3, pic4];
 
 const paragraphs = [
   `Hi, I’m Shishir Yadav — a software engineer driven by curiosity, creativity, and a relentless passion for solving meaningful problems with code.`,
-
   `I bring a strong foundation in Java, Spring Boot, React, Node.js, and cloud platforms like AWS & Azure, paired with real-world experience in building scalable full-stack applications, cloud-native systems, and dynamic user interfaces. Whether it's optimizing cloud resources using AI, crafting elegant UI experiences, or designing backend architectures, I thrive where code meets impact.`,
-
   `💼 Formerly at Tata Consultancy Services, I worked on enterprise-grade solutions with Power Platform and M365, but my learning didn't stop there. As a graduate student, I've deep-dived into Advanced OS, Cloud Engineering, Security, and Computer Vision, while leading hands-on projects ranging from AI-powered optimization tools to real-time chat apps and scheduling algorithms.`,
-
   `Currently on F-1 OPT (starting June 9, 2025), with a STEM extension eligible until June 8, 2028, I’m actively exploring full-time roles where I can build, innovate, and grow with high-performing teams.`,
-
   `Outside of work, you’ll often find me refining my portfolio, sharing insights on LinkedIn, or obsessing over clean UI and well-structured backend logic.`,
-
   `📬 Always up for a chat—be it about tech, career opportunities, or startup ideas. Let’s connect and build something remarkable!`,
 ];
 
@@ -27,6 +23,7 @@ const AboutMe = () => {
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const [highlightIndex, setHighlightIndex] = useState(-1);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Image rotation
   useEffect(() => {
@@ -41,48 +38,114 @@ const AboutMe = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setHighlightIndex((prev) => (prev + 1) % totalWords);
-    }, 1000); // Slowed down for better visibility
+    }, 1000);
     return () => clearInterval(timer);
   }, [totalWords]);
 
   let globalWordCounter = -1;
 
   return (
-    <div className="min-h-screen bg-black text-white font-[Cinzel] overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white px-4 py-10 relative">
       {/* Header */}
-      <header className="fixed top-0 left-0 w-full flex items-center justify-between px-6 py-4 bg-[#111] text-sm font-medium z-30">
-        <div className="text-red-600 text-xl font-bold tracking-wide">
+      <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
+        <div
+          onClick={() => navigate("/recruiter")}
+          className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
+        >
           SHISHIR YADAV
         </div>
-        <nav className="hidden md:flex gap-6 text-white">
-          <a href="#" className="hover:text-red-400">
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Home
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Professional
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Skills
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Projects
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Hire Me
-          </a>
+          </span>
         </nav>
-        <div
-          className="w-8 h-8 rounded-full cursor-pointer overflow-hidden hover:opacity-80 transition"
-          onClick={() => navigate("/recruiter")}
-          title="Back to Browse"
-        >
-          <img
-            src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
-            alt="Back Avatar"
-            className="w-full h-full object-cover"
-          />
+
+        {/* Mobile Avatar + Menu */}
+        <div className="flex items-center gap-4">
+          <button
+            className="md:hidden text-white text-lg"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FaBars />
+          </button>
+          <div
+            className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
+            onClick={() => navigate("/recruiter")}
+            title="Go to Home"
+          >
+            <img
+              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              alt="Avatar"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </header>
+
+      {/* Mobile Nav */}
+      {menuOpen && (
+        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Home
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Professional
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Skills
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Projects
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Hire Me
+          </span>
+        </div>
+      )}
 
       {/* Main Content */}
       <div className="pt-20 flex flex-col md:flex-row w-full">

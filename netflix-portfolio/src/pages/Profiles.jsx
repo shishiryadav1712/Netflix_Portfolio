@@ -28,7 +28,7 @@ const Profiles = () => {
       <h1 className="text-4xl md:text-5xl font-semibold mb-10">
         Who's watching?
       </h1>
-      <div className="flex gap-10 flex-wrap justify-center">
+      <div className="flex gap-10 flex-wrap justify-center items-center w-full max-w-2xl">
         {profiles.map((profile) => (
           <div
             key={profile.name}

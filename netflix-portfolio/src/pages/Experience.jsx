@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaBriefcase, FaGraduationCap } from "react-icons/fa";
+import { FaBriefcase, FaGraduationCap, FaBars } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-// Title letter animation config
 const title = "Experience".split("");
 
 const timelineItems = [
@@ -32,7 +31,7 @@ const timelineItems = [
   {
     type: "work",
     title:
-      "Systems Engineer| Cloud Developer | Microsoft Power Platform, Azure Solutions, and Systems Design",
+      "Systems Engineer | Cloud Developer | Microsoft Power Platform, Azure Solutions, and Systems Design",
     company: "Tata Consultancy Services (TCS)",
     location: "Kolkata, India",
     period: "Jul 2021 – Nov 2022",
@@ -58,51 +57,112 @@ const timelineItems = [
 
 const Experience = () => {
   const navigate = useNavigate();
-  const handleSelect = (profileName) => {
-    console.log("Selected profile:", profileName);
-    if (profileName === "Recruiter") {
-      navigate("/recruiter");
-    } else if (profileName === "Guest") {
-      navigate("/guest");
-    }
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-black text-white px-4 md:px-10 py-16 font-sans relative overflow-hidden">
-      <header className="absolute top-0 left-0 w-full flex items-center justify-between px-6 py-4 bg-[#111] text-sm font-medium z-20">
-        <div className="text-red-600 text-xl font-bold tracking-wide">
+    <div className="min-h-screen bg-black text-white px-4 md:px-10 py-16 pt-28 relative overflow-hidden">
+      {/* Header */}
+      <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
+        <div
+          onClick={() => navigate("/recruiter")}
+          className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
+        >
           SHISHIR YADAV
         </div>
-        <nav className="hidden md:flex gap-6 text-white">
-          <a href="#" className="hover:text-red-400">
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Home
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Professional
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Skills
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Projects
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Hire Me
-          </a>
+          </span>
         </nav>
-        <div
-          className="w-8 h-8 rounded-full cursor-pointer overflow-hidden hover:opacity-80 transition"
-          onClick={() => navigate("/recruiter")}
-          title="Back to Browse"
-        >
-          <img
-            src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
-            alt="Back Avatar"
-            className="w-full h-full object-cover"
-          />
+
+        {/* Avatar + Mobile Menu */}
+        <div className="flex items-center gap-4">
+          <button
+            className="md:hidden text-white text-lg"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FaBars />
+          </button>
+          <div
+            className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
+            onClick={() => navigate("/recruiter")}
+            title="Go to Home"
+          >
+            <img
+              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              alt="Avatar"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </header>
 
-      {/* 🔠 Animated Title Letters */}
+      {/* Mobile Menu Dropdown */}
+      {menuOpen && (
+        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Home
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Professional
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Skills
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Projects
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Hire Me
+          </span>
+        </div>
+      )}
+
+      {/* Animated Heading */}
       <motion.h1
         className="relative z-10 flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-20 tracking-wide"
         initial="hidden"
@@ -131,7 +191,7 @@ const Experience = () => {
         ))}
       </motion.h1>
 
-      {/* 🔗 Vertical Timeline */}
+      {/* Timeline */}
       <div className="relative z-10 max-w-4xl mx-auto before:absolute before:left-1/2 before:top-0 before:bottom-0 before:w-1 before:bg-[#e50914] before:transform before:-translate-x-1/2">
         {timelineItems.map((item, index) => {
           const isLeft = index % 2 === 0;
@@ -146,9 +206,7 @@ const Experience = () => {
                 isLeft ? "md:flex-row-reverse" : ""
               }`}
             >
-              {/* 💡 Glow & shine card */}
               <div className="group relative bg-[#1c1c1c] p-6 rounded-xl border border-gray-700 w-full md:w-[45%] overflow-hidden shadow-md hover:shadow-[0_0_20px_6px_rgba(229,9,20,0.4)] transition duration-300">
-                {/* Shine on hover */}
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
                 <h3 className="text-xl md:text-2xl font-bold mb-1 text-white">
                   {item.title}
@@ -167,7 +225,7 @@ const Experience = () => {
                 </ul>
               </div>
 
-              {/* Icon */}
+              {/* Timeline Dot Icon */}
               <div className="hidden md:flex items-center justify-center bg-black border-4 border-[#e50914] text-[#e50914] w-12 h-12 rounded-full absolute top-0 md:top-1/2 md:-translate-y-1/2 left-1/2 -translate-x-1/2 z-10">
                 {item.icon}
               </div>

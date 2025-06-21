@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
 
 import cartverse from "../assets/cartverse.png";
 import tcc from "../assets/tcc.png";
@@ -89,7 +90,8 @@ const heading = "Projects";
 
 const Projects = () => {
   const scrollRef = useRef(null);
-  const navigate = useNavigate(); // ✅ Added here
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const scroll = (dir) => {
     if (scrollRef.current) {
@@ -101,45 +103,110 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-16 relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white px-4 py-10 relative">
       {/* Header */}
-      <header className="absolute top-0 left-0 w-full flex items-center justify-between px-6 py-4 bg-[#111] text-sm font-medium z-20">
-        <div className="text-red-600 text-xl font-bold tracking-wide">
+      <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
+        <div
+          onClick={() => navigate("/recruiter")}
+          className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
+        >
           SHISHIR YADAV
         </div>
-        <nav className="hidden md:flex gap-6 text-white">
-          <a href="#" className="hover:text-red-400">
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Home
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Professional
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Skills
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Projects
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Hire Me
-          </a>
+          </span>
         </nav>
-        <div
-          className="w-8 h-8 rounded-full cursor-pointer overflow-hidden hover:opacity-80 transition"
-          onClick={() => navigate("/recruiter")}
-          title="Back to Browse"
-        >
-          <img
-            src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
-            alt="Back Avatar"
-            className="w-full h-full object-cover"
-          />
+
+        {/* Mobile Avatar + Menu */}
+        <div className="flex items-center gap-4">
+          <button
+            className="md:hidden text-white text-lg"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FaBars />
+          </button>
+          <div
+            className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
+            onClick={() => navigate("/recruiter")}
+            title="Go to Home"
+          >
+            <img
+              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              alt="Avatar"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </header>
 
+      {/* Mobile Nav */}
+      {menuOpen && (
+        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Home
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Professional
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Skills
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Projects
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Hire Me
+          </span>
+        </div>
+      )}
       {/* Animated Heading */}
       <motion.h1
-        className="text-center flex justify-center flex-wrap font-extrabold text-4xl md:text-5xl mb-12 tracking-wide"
+        className="text-center flex justify-center flex-wrap font-extrabold text-4xl md:text-5xl mb-12 tracking-wide pt-24"
         initial="hidden"
         animate="visible"
         variants={{
@@ -207,7 +274,6 @@ const Projects = () => {
                 />
               </div>
             </div>
-
             <div className="p-5 flex flex-col justify-between h-[calc(100%-320px)]">
               <div>
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
@@ -243,7 +309,6 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* Hide scrollbar on WebKit */}
       <style>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;

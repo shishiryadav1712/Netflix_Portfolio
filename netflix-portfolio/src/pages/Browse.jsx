@@ -1,9 +1,14 @@
-import React from "react";
-import { FaPlay } from "react-icons/fa";
-import { FaLinkedinIn } from "react-icons/fa";
+import React, { useRef, useState } from "react";
+import {
+  FaPlay,
+  FaLinkedinIn,
+  FaChevronLeft,
+  FaChevronRight,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-// Import images for Top Picks
 import workPermitImg from "../assets/work-permit.jpg";
 import skillsImg from "../assets/skills.jpg";
 import experienceImg from "../assets/experience.jpg";
@@ -11,7 +16,6 @@ import certificationsImg from "../assets/certifications.jpg";
 import projectsImg from "../assets/projects.jpg";
 import contactMeImg from "../assets/contact-me.jpg";
 
-// Import images for For the Curious
 import aboutMeImg from "../assets/about-me.jpg";
 import favoriteBlogsImg from "../assets/favorite-blogs.jpg";
 import almaMaterImg from "../assets/alma-mater.jpg";
@@ -35,29 +39,33 @@ const curiousTiles = [
 
 const Browse = () => {
   const navigate = useNavigate();
+  const scrollRefTop = useRef(null);
+  const scrollRefCurious = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const scroll = (ref, dir) => {
+    if (ref.current) {
+      ref.current.scrollBy({
+        left: dir === "left" ? -500 : 500,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const handleCardClick = (title) => {
-    if (title === "Work Permit") {
-      navigate("/work-permit");
-    } else if (title === "Skills") {
-      navigate("/skills");
-    } else if (title === "Experience") {
-      navigate("/experience");
-    } else if (title === "Certifications") {
-      navigate("/certifications");
-    } else if (title === "Contact Me") {
-      navigate("/contact-me");
-    } else if (title === "About Me") {
-      navigate("/about");
-    } else if (title === "Favorite Blogs") {
-      navigate("/browse");
-    } else if (title === "Alma Mater") {
-      navigate("/university");
-    } else if (title === "Great Reads") {
-      navigate("/reads");
-    } else if (title === "Projects") {
-      navigate("/project");
-    }
+    const routes = {
+      "Work Permit": "/work-permit",
+      Skills: "/skills",
+      Experience: "/experience",
+      Certifications: "/certifications",
+      Projects: "/project",
+      "Contact Me": "/contact-me",
+      "About Me": "/about",
+      "Favorite Blogs": "/browse",
+      "Alma Mater": "/university",
+      "Great Reads": "/reads",
+    };
+    navigate(routes[title] || "/");
   };
 
   const renderCards = (items) =>
@@ -65,7 +73,7 @@ const Browse = () => {
       <div
         key={idx}
         onClick={() => handleCardClick(title)}
-        className="w-44 h-24 md:w-56 md:h-32 bg-gray-800 rounded-lg flex items-center justify-center text-white font-semibold text-center shadow transition duration-300 ease-in-out border-2 border-transparent hover:border-[#e50914] hover:shadow-[0_0_12px_3px_rgba(229,9,20,0.6)] hover:scale-102 cursor-pointer"
+        className="w-44 h-24 md:w-56 md:h-32 bg-gray-800 flex-shrink-0 rounded-lg flex items-center justify-center text-white font-semibold text-center shadow transition duration-300 ease-in-out border-2 border-transparent hover:border-[#e50914] hover:shadow-[0_0_12px_3px_rgba(229,9,20,0.6)] hover:scale-102 cursor-pointer"
         style={{
           backgroundImage: `url(${img})`,
           backgroundSize: "cover",
@@ -79,44 +87,110 @@ const Browse = () => {
     ));
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
+    <div className="min-h-screen bg-black text-white font-sans relative overflow-hidden">
       {/* Navbar */}
-      <header className="flex items-center justify-between px-6 py-4 bg-[#111] text-sm font-medium">
-        <div className="text-red-600 text-xl font-bold tracking-wide">
+      <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
+        <div
+          onClick={() => navigate("/recruiter")}
+          className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
+        >
           SHISHIR YADAV
         </div>
-        <nav className="hidden md:flex gap-6">
-          <a href="#" className="hover:text-red-400">
+
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Home
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Professional
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Skills
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Projects
-          </a>
-          <a href="#" className="hover:text-red-400">
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
             Hire Me
-          </a>
+          </span>
         </nav>
-        <div
-          className="w-8 h-8 rounded-full cursor-pointer overflow-hidden hover:opacity-80 transition"
-          onClick={() => navigate("/profiles")}
-          title="Switch Profile"
-        >
-          <img
-            src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
-            alt="recruiter Avatar"
-            className="w-full h-full object-cover"
-          />
+
+        {/* Right Avatar + Hamburger (Mobile) */}
+        <div className="flex items-center gap-4">
+          <button
+            className="md:hidden text-white text-lg"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FaBars />
+          </button>
+          <div
+            className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
+            onClick={() => navigate("/profiles")}
+            title="Go to Profiles"
+          >
+            <img
+              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              alt="Avatar"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </header>
 
+      {/* Mobile Menu Dropdown */}
+      {menuOpen && (
+        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+          <span
+            onClick={() => navigate("/recruiter")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Home
+          </span>
+          <span
+            onClick={() => navigate("/experience")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Professional
+          </span>
+          <span
+            onClick={() => navigate("/skills")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Skills
+          </span>
+          <span
+            onClick={() => navigate("/project")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Projects
+          </span>
+          <span
+            onClick={() => navigate("/contact-me")}
+            className="hover:text-red-400 cursor-pointer"
+          >
+            Hire Me
+          </span>
+        </div>
+      )}
+
+      {/* Hero Section */}
       <section className="relative w-full h-[50vh] overflow-hidden">
-        {/* Background Video */}
         <video
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
           autoPlay
@@ -125,13 +199,8 @@ const Browse = () => {
           playsInline
         >
           <source src="/hero.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
         </video>
-
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black/60 z-10" />
-
-        {/* Text Content */}
         <div className="relative z-20 px-10 h-full flex flex-col justify-center max-w-4xl">
           <h1 className="text-3xl md:text-5xl font-bold mb-4">
             Shishir Yadav – Full Stack Developer
@@ -139,8 +208,11 @@ const Browse = () => {
           <p className="text-sm md:text-base max-w-2xl mb-6 leading-relaxed">
             Dynamic and results-driven Software Engineer with a strong
             foundation in Java, React, Node.js, and Cloud platforms. Passionate
-            about scalable architecture, solving real-world problems, and
-            building user-centric experiences.
+            about building scalable architectures and solving real-world
+            problems through elegant, user-centric experiences. Actively
+            exploring the intersection of software engineering and AI — from
+            smart automation to intelligent system design — to create impactful
+            and future-ready solutions.
           </p>
           <div className="flex gap-4">
             <a
@@ -165,23 +237,59 @@ const Browse = () => {
         </div>
       </section>
 
-      {/* Top Picks Section */}
-      <section className="px-8 py-10 mt-4">
+      {/* Top Picks */}
+      <section className="relative px-8 py-10 mt-4">
         <h2 className="text-lg md:text-xl font-bold mb-4">Today's Top Picks</h2>
-        <div className="flex gap-4 overflow-x-auto pb-2 pr-6 scrollbar-thin scrollbar-thumb-red-600">
+        <button
+          onClick={() => scroll(scrollRefTop, "left")}
+          className="absolute left-4 top-[60%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+        >
+          <FaChevronLeft />
+        </button>
+        <button
+          onClick={() => scroll(scrollRefTop, "right")}
+          className="absolute right-4 top-[60%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+        >
+          <FaChevronRight />
+        </button>
+        <div
+          ref={scrollRefTop}
+          className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-8"
+        >
           {renderCards(topPicks)}
         </div>
       </section>
 
-      {/* For the Curious Section */}
-      <section className="px-8 py-10 mt-4">
+      {/* Curious Tiles */}
+      <section className="relative px-8 py-10 mt-4">
         <h2 className="text-lg md:text-xl font-bold mb-4">
           🔥 For the Curious
         </h2>
-        <div className="flex gap-4 overflow-x-auto pb-2 pr-6 scrollbar-thin scrollbar-thumb-red-600">
+        <button
+          onClick={() => scroll(scrollRefCurious, "left")}
+          className="absolute left-4 top-[85%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+        >
+          <FaChevronLeft />
+        </button>
+        <button
+          onClick={() => scroll(scrollRefCurious, "right")}
+          className="absolute right-4 top-[85%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+        >
+          <FaChevronRight />
+        </button>
+        <div
+          ref={scrollRefCurious}
+          className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-8"
+        >
           {renderCards(curiousTiles)}
         </div>
       </section>
+
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 };
