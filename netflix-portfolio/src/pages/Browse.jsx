@@ -143,7 +143,7 @@ const Browse = () => {
 
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+        <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-[100] shadow-md">
           {getNavLinks().map(({ label, path }) => (
             <span
               key={label}
