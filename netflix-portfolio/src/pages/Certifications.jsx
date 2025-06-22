@@ -92,8 +92,8 @@ const Certifications = () => {
   const title = "Certifications".split("");
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-10 relative">
-      {/* Header */}
+    <div className="min-h-screen bg-black text-white px-4 pt-24 pb-10 relative">
+      {/* Fixed Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
           onClick={goHome}
@@ -115,7 +115,7 @@ const Certifications = () => {
           ))}
         </nav>
 
-        {/* Avatar + Mobile Menu */}
+        {/* Avatar + Mobile Menu Button */}
         <div className="flex items-center gap-4">
           <button
             className="md:hidden text-white text-lg"
@@ -137,13 +137,16 @@ const Certifications = () => {
         </div>
       </header>
 
-      {/* Mobile Dropdown Menu */}
+      {/* ✅ FIXED: Dropdown directly after Header */}
       {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+        <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-[1000] shadow-lg backdrop-blur-md">
           {getNavLinks().map(({ label, path }) => (
             <span
               key={label}
-              onClick={() => navigate(path)}
+              onClick={() => {
+                setMenuOpen(false);
+                navigate(path);
+              }}
               className="hover:text-red-400 cursor-pointer"
             >
               {label}
@@ -154,7 +157,7 @@ const Certifications = () => {
 
       {/* Animated Heading */}
       <motion.h1
-        className="relative z-10 flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-16 tracking-wide pt-24"
+        className="flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-16 tracking-wide"
         initial="hidden"
         animate="visible"
         variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
@@ -177,7 +180,7 @@ const Certifications = () => {
       </motion.h1>
 
       {/* Certification Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto z-10 relative">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {certifications.map((cert, idx) => (
           <motion.div
             key={idx}

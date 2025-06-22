@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
-import useProfile from "../hooks/useProfile"; // ✅ Hook
+import useProfile from "../hooks/useProfile";
 import sapiens from "../assets/sapiens.jpg";
 import fountainhead from "../assets/fountainhead.jpg";
 import thinkGrowRich from "../assets/thinkgrowrich.jpg";
@@ -40,12 +40,12 @@ const title = "Great Reads".split("");
 const GreatReads = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { avatar, goHome } = useProfile(); // ✅ Get avatar & route function
+  const { avatar, goHome } = useProfile();
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-10 relative">
+    <div className="min-h-screen bg-black text-white pt-28 px-4 relative overflow-x-hidden">
       {/* Header */}
-      <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
+      <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-[1001] px-4 py-3 flex items-center justify-between">
         <div
           onClick={goHome}
           className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
@@ -53,7 +53,7 @@ const GreatReads = () => {
           SHISHIR YADAV
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav */}
         <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
           <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
@@ -106,9 +106,9 @@ const GreatReads = () => {
         </div>
       </header>
 
-      {/* Mobile Nav */}
+      {/* Mobile Dropdown Nav */}
       {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+        <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-[1000] shadow-lg backdrop-blur-md max-h-[calc(100vh-56px)] overflow-y-auto">
           <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
           </span>
@@ -139,9 +139,9 @@ const GreatReads = () => {
         </div>
       )}
 
-      {/* Animated Heading */}
+      {/* Animated Title */}
       <motion.h1
-        className="relative z-10 flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-16 tracking-wide pt-24"
+        className="relative z-10 flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-16 tracking-wide"
         initial="hidden"
         animate="visible"
         variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
@@ -167,7 +167,7 @@ const GreatReads = () => {
       </motion.h1>
 
       {/* Book Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-6xl mx-auto z-10 relative">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-6xl mx-auto z-10 relative pb-16">
         {books.map((book, idx) => (
           <motion.div
             key={idx}
@@ -181,7 +181,7 @@ const GreatReads = () => {
               <img
                 src={book.cover}
                 alt={book.title}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             </div>
             <div className="p-6">

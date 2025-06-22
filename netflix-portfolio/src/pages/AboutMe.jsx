@@ -96,7 +96,7 @@ const AboutMe = () => {
 
       {/* Mobile Nav */}
       {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+        <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-[1000] shadow-lg backdrop-blur-md max-h-[calc(100vh-56px)] overflow-y-auto">
           {navLinks.map((link) => (
             <span
               key={link.label}

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
-import useProfile from "../hooks/useProfile"; // ✅ Import profile hook
+import useProfile from "../hooks/useProfile";
 
 import algomaster from "../assets/algomaster.png";
 import tldr from "../assets/tldr.png";
@@ -47,16 +47,21 @@ const blogs = [
 const FavoriteBlogs = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { avatar, goHome } = useProfile(); // ✅ profile-aware
+  const { avatar, goHome } = useProfile();
 
   const title = "Favorite Blogs".split("");
+
+  const handleNavClick = (path) => {
+    setMenuOpen(false);
+    navigate(path);
+  };
 
   return (
     <div className="min-h-screen bg-black text-white px-4 md:px-10 py-16 pt-28 relative overflow-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
-          onClick={goHome}
+          onClick={() => handleNavClick("/recruiter")}
           className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
         >
           SHISHIR YADAV
@@ -68,25 +73,25 @@ const FavoriteBlogs = () => {
             Home
           </span>
           <span
-            onClick={() => navigate("/experience")}
+            onClick={() => handleNavClick("/experience")}
             className="hover:text-red-400 cursor-pointer"
           >
             Professional
           </span>
           <span
-            onClick={() => navigate("/skills")}
+            onClick={() => handleNavClick("/skills")}
             className="hover:text-red-400 cursor-pointer"
           >
             Skills
           </span>
           <span
-            onClick={() => navigate("/project")}
+            onClick={() => handleNavClick("/project")}
             className="hover:text-red-400 cursor-pointer"
           >
             Projects
           </span>
           <span
-            onClick={() => navigate("/contact-me")}
+            onClick={() => handleNavClick("/contact-me")}
             className="hover:text-red-400 cursor-pointer"
           >
             Hire Me
@@ -115,32 +120,32 @@ const FavoriteBlogs = () => {
         </div>
       </header>
 
-      {/* Mobile Menu Dropdown */}
+      {/* ✅ Mobile Dropdown Navigation */}
       {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+        <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-[1000] shadow-lg backdrop-blur-md">
           <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
           </span>
           <span
-            onClick={() => navigate("/experience")}
+            onClick={() => handleNavClick("/experience")}
             className="hover:text-red-400 cursor-pointer"
           >
             Professional
           </span>
           <span
-            onClick={() => navigate("/skills")}
+            onClick={() => handleNavClick("/skills")}
             className="hover:text-red-400 cursor-pointer"
           >
             Skills
           </span>
           <span
-            onClick={() => navigate("/project")}
+            onClick={() => handleNavClick("/project")}
             className="hover:text-red-400 cursor-pointer"
           >
             Projects
           </span>
           <span
-            onClick={() => navigate("/contact-me")}
+            onClick={() => handleNavClick("/contact-me")}
             className="hover:text-red-400 cursor-pointer"
           >
             Hire Me
@@ -177,7 +182,7 @@ const FavoriteBlogs = () => {
         ))}
       </motion.h1>
 
-      {/* Blog Grid */}
+      {/* Blog Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {blogs.map((blog, idx) => (
           <motion.div

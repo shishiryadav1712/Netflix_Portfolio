@@ -62,8 +62,8 @@ const Experience = () => {
   const { avatar, goHome, getNavLinks, goToDashboard } = useProfile();
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 md:px-10 py-16 pt-28 relative overflow-hidden">
-      {/* Header */}
+    <div className="min-h-screen bg-black text-white px-4 md:px-10 pt-24 pb-16 relative overflow-hidden">
+      {/* Fixed Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
           onClick={goHome}
@@ -72,7 +72,7 @@ const Experience = () => {
           SHISHIR YADAV
         </div>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
           {getNavLinks().map(({ label, path }) => (
             <span
@@ -85,7 +85,7 @@ const Experience = () => {
           ))}
         </nav>
 
-        {/* Avatar + Mobile Menu */}
+        {/* Avatar + Mobile Button */}
         <div className="flex items-center gap-4">
           <button
             className="md:hidden text-white text-lg"
@@ -107,13 +107,16 @@ const Experience = () => {
         </div>
       </header>
 
-      {/* Mobile Menu Dropdown */}
+      {/* ✅ Mobile Dropdown FIXED — visible always, outside scroll */}
       {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+        <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-[1000] shadow-lg backdrop-blur-md">
           {getNavLinks().map(({ label, path }) => (
             <span
               key={label}
-              onClick={() => navigate(path)}
+              onClick={() => {
+                setMenuOpen(false);
+                navigate(path);
+              }}
               className="hover:text-red-400 cursor-pointer"
             >
               {label}
@@ -122,9 +125,9 @@ const Experience = () => {
         </div>
       )}
 
-      {/* Animated Heading */}
+      {/* Animated Title */}
       <motion.h1
-        className="relative z-10 flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-20 tracking-wide"
+        className="flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-20 tracking-wide"
         initial="hidden"
         animate="visible"
         variants={{
@@ -151,7 +154,7 @@ const Experience = () => {
         ))}
       </motion.h1>
 
-      {/* Timeline */}
+      {/* Timeline Section */}
       <div className="relative z-10 max-w-4xl mx-auto before:absolute before:left-1/2 before:top-0 before:bottom-0 before:w-1 before:bg-[#e50914] before:transform before:-translate-x-1/2">
         {timelineItems.map((item, index) => {
           const isLeft = index % 2 === 0;

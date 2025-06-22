@@ -123,7 +123,7 @@ const Skills = () => {
     );
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-10 relative">
+    <div className="min-h-screen bg-black text-white pb-10">
       {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
@@ -168,24 +168,29 @@ const Skills = () => {
         </div>
       </header>
 
-      {/* Mobile Dropdown Nav */}
-      {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
-          {getNavLinks().map(({ label, path }) => (
-            <span
-              key={label}
-              onClick={() => navigate(path)}
-              className="hover:text-red-400 cursor-pointer"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
-      )}
+      {/* ✅ Mobile Dropdown moved outside content area */}
+      <div className="relative z-40">
+        {menuOpen && (
+          <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40 shadow-md">
+            {getNavLinks().map(({ label, path }) => (
+              <span
+                key={label}
+                onClick={() => {
+                  navigate(path);
+                  setMenuOpen(false);
+                }}
+                className="hover:text-red-400 cursor-pointer"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
 
-      {/* Content */}
+      {/* Main content */}
       <motion.div
-        className="max-w-6xl mx-auto mt-24 space-y-12"
+        className="max-w-6xl mx-auto pt-24 space-y-12 px-4"
         variants={container}
         initial="hidden"
         animate="visible"

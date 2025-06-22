@@ -18,7 +18,7 @@ const ContactMe = () => {
   const navLinks = getNavLinks();
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 md:px-10 pt-28 relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white px-4 md:px-10 pt-24 pb-16 relative overflow-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
@@ -41,7 +41,7 @@ const ContactMe = () => {
           ))}
         </nav>
 
-        {/* Avatar + Mobile Menu */}
+        {/* Avatar + Mobile Menu Button */}
         <div className="flex items-center gap-4">
           <button
             className="md:hidden text-white text-lg"
@@ -63,13 +63,16 @@ const ContactMe = () => {
         </div>
       </header>
 
-      {/* Mobile Menu Dropdown */}
+      {/* ✅ Mobile Dropdown FIXED */}
       {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+        <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-[1000] shadow-lg backdrop-blur-md">
           {navLinks.map((link, idx) => (
             <span
               key={idx}
-              onClick={() => navigate(link.path)}
+              onClick={() => {
+                setMenuOpen(false);
+                navigate(link.path);
+              }}
               className="hover:text-red-400 cursor-pointer"
             >
               {link.label}
@@ -78,7 +81,7 @@ const ContactMe = () => {
         </div>
       )}
 
-      {/* Flip Card Container */}
+      {/* Flip Card Section */}
       <div className="flex justify-center items-center mt-10 px-4">
         <motion.div
           className="w-full max-w-2xl h-[500px] perspective relative z-10"
@@ -93,7 +96,7 @@ const ContactMe = () => {
               transition={{ duration: 0.8 }}
               className="absolute w-full h-full rounded-2xl shadow-lg border border-gray-700 bg-[#111] backface-hidden p-10 md:p-12 overflow-hidden"
             >
-              {/* FRONT VIEW */}
+              {/* FRONT */}
               {!flipped && (
                 <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
                   <img
@@ -127,7 +130,7 @@ const ContactMe = () => {
                 </div>
               )}
 
-              {/* BACK VIEW */}
+              {/* BACK */}
               {flipped && (
                 <div className="flex flex-col justify-center items-center h-full text-center space-y-4">
                   <h2 className="text-2xl font-bold text-[#e50914]">
