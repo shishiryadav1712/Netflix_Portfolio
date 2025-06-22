@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import splashSound from "../assets/netflix-sound.mp3";
 
 const Splash = () => {
-  const name = "SHISHIR YADAV".split("");
   const navigate = useNavigate();
   const audioRef = useRef(null);
   const [clicked, setClicked] = useState(false);
@@ -53,45 +52,76 @@ const Splash = () => {
       )}
 
       {/* Name Animation */}
-      <motion.div
-        initial="hidden"
-        animate={clicked ? "explode" : "visible"}
-        variants={{
-          visible: {
-            transition: {
-              staggerChildren: 0.08,
-            },
-          },
-          explode: {
-            transition: {
-              staggerChildren: 0.05,
-            },
-          },
-        }}
-        className="z-20 flex flex-wrap justify-center text-red-600 text-5xl md:text-6xl font-extrabold tracking-widest"
-        style={{ transform: "scaleY(1.2) rotateX(20deg)" }}
-      >
-        {name.map((char, index) => (
-          <motion.span
-            key={index}
-            variants={{
-              hidden: { opacity: 0, scale: 0.8 },
-              visible: { opacity: 1, scale: 1 },
-              explode: {
-                x: (Math.random() - 0.5) * 500,
-                y: (Math.random() - 0.5) * 500,
-                opacity: 0,
-                rotate: (Math.random() - 0.5) * 360,
-                transition: { duration: 1, ease: "easeInOut" },
-              },
-            }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mx-1"
-          >
-            {char === " " ? "\u00A0" : char}
-          </motion.span>
-        ))}
-      </motion.div>
+      <div className="z-20 text-red-600 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-widest text-center leading-tight">
+        {/* One line layout on md and up */}
+        <motion.div
+          initial="hidden"
+          animate={clicked ? "explode" : "visible"}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08 } },
+            explode: { transition: { staggerChildren: 0.05 } },
+          }}
+          className="hidden md:flex justify-center flex-wrap"
+          style={{ transform: "scaleY(1.2) rotateX(20deg)" }}
+        >
+          {"SHISHIR YADAV".split("").map((char, index) => (
+            <motion.span
+              key={`desktop-${index}`}
+              variants={{
+                hidden: { opacity: 0, scale: 0.8 },
+                visible: { opacity: 1, scale: 1 },
+                explode: {
+                  x: (Math.random() - 0.5) * 500,
+                  y: (Math.random() - 0.5) * 500,
+                  opacity: 0,
+                  rotate: (Math.random() - 0.5) * 360,
+                  transition: { duration: 1, ease: "easeInOut" },
+                },
+              }}
+              className="mx-1"
+            >
+              {char === " " ? "\u00A0" : char}
+            </motion.span>
+          ))}
+        </motion.div>
+
+        {/* Two-line layout on mobile */}
+        <div className="flex flex-col md:hidden">
+          {["SHISHIR", "YADAV"].map((word, lineIdx) => (
+            <motion.div
+              key={lineIdx}
+              initial="hidden"
+              animate={clicked ? "explode" : "visible"}
+              variants={{
+                visible: { transition: { staggerChildren: 0.08 } },
+                explode: { transition: { staggerChildren: 0.05 } },
+              }}
+              className="flex justify-center"
+              style={{ transform: "scaleY(1.2) rotateX(20deg)" }}
+            >
+              {word.split("").map((char, index) => (
+                <motion.span
+                  key={`mobile-${lineIdx}-${index}`}
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.8 },
+                    visible: { opacity: 1, scale: 1 },
+                    explode: {
+                      x: (Math.random() - 0.5) * 500,
+                      y: (Math.random() - 0.5) * 500,
+                      opacity: 0,
+                      rotate: (Math.random() - 0.5) * 360,
+                      transition: { duration: 1, ease: "easeInOut" },
+                    },
+                  }}
+                  className="mx-1"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
       {/* Sparkle/Glow Overlay */}
       {clicked && (
