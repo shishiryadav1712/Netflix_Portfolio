@@ -157,7 +157,7 @@ const Browse = () => {
       )}
 
       {/* Hero Section */}
-      <section className="relative w-full h-[50vh] overflow-hidden">
+      <section className="relative w-full h-[50vh] overflow-hidden pt-[72px] md:pt-0">
         <video
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
           autoPlay
