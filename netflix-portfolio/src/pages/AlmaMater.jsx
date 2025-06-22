@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import useProfile from "../hooks/useProfile"; // ✅ Profile hook
 import purdue from "../assets/purdue.jpg";
 import gitam from "../assets/gitam.jpg";
 
@@ -25,13 +26,14 @@ const title = "Alma Mater".split("");
 const AlmaMater = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { avatar, goHome } = useProfile(); // ✅ Inject avatar & redirect logic
 
   return (
     <div className="min-h-screen bg-black text-white px-4 py-10 relative">
       {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
-          onClick={() => navigate("/recruiter")}
+          onClick={goHome}
           className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
         >
           SHISHIR YADAV
@@ -39,10 +41,7 @@ const AlmaMater = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
-          <span
-            onClick={() => navigate("/recruiter")}
-            className="hover:text-red-400 cursor-pointer"
-          >
+          <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
           </span>
           <span
@@ -81,11 +80,11 @@ const AlmaMater = () => {
           </button>
           <div
             className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
-            onClick={() => navigate("/recruiter")}
+            onClick={goHome}
             title="Go to Home"
           >
             <img
-              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              src={avatar}
               alt="Avatar"
               className="w-full h-full object-cover"
             />
@@ -96,10 +95,7 @@ const AlmaMater = () => {
       {/* Mobile Nav */}
       {menuOpen && (
         <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
-          <span
-            onClick={() => navigate("/recruiter")}
-            className="hover:text-red-400 cursor-pointer"
-          >
+          <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
           </span>
           <span

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import useProfile from "../hooks/useProfile"; // ✅ Hook
 import sapiens from "../assets/sapiens.jpg";
 import fountainhead from "../assets/fountainhead.jpg";
 import thinkGrowRich from "../assets/thinkgrowrich.jpg";
@@ -39,13 +40,14 @@ const title = "Great Reads".split("");
 const GreatReads = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { avatar, goHome } = useProfile(); // ✅ Get avatar & route function
 
   return (
     <div className="min-h-screen bg-black text-white px-4 py-10 relative">
       {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
-          onClick={() => navigate("/recruiter")}
+          onClick={goHome}
           className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
         >
           SHISHIR YADAV
@@ -53,10 +55,7 @@ const GreatReads = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
-          <span
-            onClick={() => navigate("/recruiter")}
-            className="hover:text-red-400 cursor-pointer"
-          >
+          <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
           </span>
           <span
@@ -95,11 +94,11 @@ const GreatReads = () => {
           </button>
           <div
             className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
-            onClick={() => navigate("/recruiter")}
+            onClick={goHome}
             title="Go to Home"
           >
             <img
-              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              src={avatar}
               alt="Avatar"
               className="w-full h-full object-cover"
             />
@@ -110,10 +109,7 @@ const GreatReads = () => {
       {/* Mobile Nav */}
       {menuOpen && (
         <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
-          <span
-            onClick={() => navigate("/recruiter")}
-            className="hover:text-red-400 cursor-pointer"
-          >
+          <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
           </span>
           <span
@@ -145,7 +141,7 @@ const GreatReads = () => {
 
       {/* Animated Heading */}
       <motion.h1
-        className="relative z-10 flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-16 tracking-wide pt-24 "
+        className="relative z-10 flex justify-center flex-wrap text-center font-extrabold text-3xl md:text-5xl mb-16 tracking-wide pt-24"
         initial="hidden"
         animate="visible"
         variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
@@ -188,7 +184,6 @@ const GreatReads = () => {
                 className="w-full h-full object-contain"
               />
             </div>
-
             <div className="p-6">
               <h3 className="text-2xl font-bold mb-1 text-white">
                 {book.title}

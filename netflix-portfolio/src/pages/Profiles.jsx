@@ -14,13 +14,12 @@ const profiles = [
 
 const Profiles = () => {
   const navigate = useNavigate();
+
   const handleSelect = (profileName) => {
-    console.log("Selected profile:", profileName);
-    if (profileName === "Recruiter") {
-      navigate("/recruiter");
-    } else if (profileName === "Guest") {
-      navigate("/guest");
-    }
+    const profileKey = profileName.toLowerCase(); // "recruiter" or "guest"
+    localStorage.setItem("profile", profileKey); // ✅ Set in localStorage
+
+    navigate(profileKey === "recruiter" ? "/recruiter" : "/guest");
   };
 
   return (

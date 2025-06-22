@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import useProfile from "../hooks/useProfile"; // ✅ Import profile hook
+
 import algomaster from "../assets/algomaster.png";
 import tldr from "../assets/tldr.png";
 import wired from "../assets/wired.png";
@@ -44,15 +46,17 @@ const blogs = [
 
 const FavoriteBlogs = () => {
   const navigate = useNavigate();
-  const title = "Favorite Blogs".split("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const { avatar, goHome } = useProfile(); // ✅ profile-aware
+
+  const title = "Favorite Blogs".split("");
 
   return (
     <div className="min-h-screen bg-black text-white px-4 md:px-10 py-16 pt-28 relative overflow-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
-          onClick={() => navigate("/recruiter")}
+          onClick={goHome}
           className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
         >
           SHISHIR YADAV
@@ -60,10 +64,7 @@ const FavoriteBlogs = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
-          <span
-            onClick={() => navigate("/recruiter")}
-            className="hover:text-red-400 cursor-pointer"
-          >
+          <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
           </span>
           <span
@@ -102,11 +103,11 @@ const FavoriteBlogs = () => {
           </button>
           <div
             className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
-            onClick={() => navigate("/recruiter")}
+            onClick={goHome}
             title="Go to Home"
           >
             <img
-              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              src={avatar}
               alt="Avatar"
               className="w-full h-full object-cover"
             />
@@ -117,10 +118,7 @@ const FavoriteBlogs = () => {
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
         <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
-          <span
-            onClick={() => navigate("/recruiter")}
-            className="hover:text-red-400 cursor-pointer"
-          >
+          <span onClick={goHome} className="hover:text-red-400 cursor-pointer">
             Home
           </span>
           <span

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaEnvelope, FaPhoneAlt, FaLinkedin, FaBars } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import useProfile from "../hooks/useProfile"; // 🔥 custom profile hook
 import myPic from "../assets/shishir.jpg";
 
 const glow = {
@@ -13,12 +14,15 @@ const ContactMe = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  const { profile, avatar, goHome, getNavLinks } = useProfile();
+  const navLinks = getNavLinks();
+
   return (
     <div className="min-h-screen bg-black text-white px-4 md:px-10 pt-28 relative overflow-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-[#111] text-white z-50 px-4 py-3 flex items-center justify-between">
         <div
-          onClick={() => navigate("/recruiter")}
+          onClick={goHome}
           className="text-red-600 text-xl font-bold tracking-wide cursor-pointer"
         >
           SHISHIR YADAV
@@ -26,36 +30,15 @@ const ContactMe = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex flex-1 justify-center gap-6 font-medium text-sm">
-          <span
-            onClick={() => navigate("/recruiter")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Home
-          </span>
-          <span
-            onClick={() => navigate("/experience")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Professional
-          </span>
-          <span
-            onClick={() => navigate("/skills")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Skills
-          </span>
-          <span
-            onClick={() => navigate("/project")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Projects
-          </span>
-          <span
-            onClick={() => navigate("/contact-me")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Hire Me
-          </span>
+          {navLinks.map((link, idx) => (
+            <span
+              key={idx}
+              onClick={() => navigate(link.path)}
+              className="hover:text-red-400 cursor-pointer"
+            >
+              {link.label}
+            </span>
+          ))}
         </nav>
 
         {/* Avatar + Mobile Menu */}
@@ -68,11 +51,11 @@ const ContactMe = () => {
           </button>
           <div
             className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
-            onClick={() => navigate("/recruiter")}
+            onClick={goHome}
             title="Go to Home"
           >
             <img
-              src="https://wallpapers.com/images/high/netflix-profile-pictures-5yup5hd2i60x7ew3.webp"
+              src={avatar}
               alt="Avatar"
               className="w-full h-full object-cover"
             />
@@ -83,36 +66,15 @@ const ContactMe = () => {
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
         <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
-          <span
-            onClick={() => navigate("/recruiter")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Home
-          </span>
-          <span
-            onClick={() => navigate("/experience")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Professional
-          </span>
-          <span
-            onClick={() => navigate("/skills")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Skills
-          </span>
-          <span
-            onClick={() => navigate("/project")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Projects
-          </span>
-          <span
-            onClick={() => navigate("/contact-me")}
-            className="hover:text-red-400 cursor-pointer"
-          >
-            Hire Me
-          </span>
+          {navLinks.map((link, idx) => (
+            <span
+              key={idx}
+              onClick={() => navigate(link.path)}
+              className="hover:text-red-400 cursor-pointer"
+            >
+              {link.label}
+            </span>
+          ))}
         </div>
       )}
 

@@ -14,6 +14,7 @@ import FavoriteBlogs from "./pages/FavoriteBlogs";
 import AlmaMater from "./pages/AlmaMater";
 import GreatReads from "./pages/GreatReads";
 import Projects from "./pages/Projects";
+
 const App = () => {
   return (
     <Routes>
