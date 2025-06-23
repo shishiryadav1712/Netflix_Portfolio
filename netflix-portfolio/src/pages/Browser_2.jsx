@@ -133,7 +133,7 @@ const Browser_2 = () => {
 
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
-        <div className="md:hidden absolute top-16 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-40">
+        <div className="md:hidden fixed top-[56px] left-0 w-full bg-[#111] flex flex-col items-center gap-4 py-4 z-[100] shadow-md">
           {getNavLinks().map(({ label, path }) => (
             <span
               key={label}
@@ -198,14 +198,15 @@ const Browser_2 = () => {
       <section className="relative px-8 py-10 mt-4">
         <h2 className="text-lg md:text-xl font-bold mb-4">Today's Top Picks</h2>
         <button
-          onClick={() => scroll(scrollRefTop, "left")}
-          className="absolute left-4 top-[60%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+          onClick={() => scroll(scrollRefCurious, "left")}
+          className="absolute left-4 top-[50%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
         >
           <FaChevronLeft />
         </button>
+
         <button
-          onClick={() => scroll(scrollRefTop, "right")}
-          className="absolute right-4 top-[60%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+          onClick={() => scroll(scrollRefCurious, "right")}
+          className="absolute right-4 top-[50%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
         >
           <FaChevronRight />
         </button>
@@ -224,13 +225,14 @@ const Browser_2 = () => {
         </h2>
         <button
           onClick={() => scroll(scrollRefCurious, "left")}
-          className="absolute left-4 top-[85%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+          className="absolute left-4 top-[50%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
         >
           <FaChevronLeft />
         </button>
+
         <button
           onClick={() => scroll(scrollRefCurious, "right")}
-          className="absolute right-4 top-[85%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+          className="absolute right-4 top-[50%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
         >
           <FaChevronRight />
         </button>

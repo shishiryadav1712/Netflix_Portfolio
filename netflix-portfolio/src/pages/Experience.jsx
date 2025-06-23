@@ -156,45 +156,48 @@ const Experience = () => {
 
       {/* Timeline Section */}
       <div className="relative z-10 max-w-4xl mx-auto before:absolute before:left-1/2 before:top-0 before:bottom-0 before:w-1 before:bg-[#e50914] before:transform before:-translate-x-1/2">
-        {timelineItems.reverse().map((item, index) => {
-          const isLeft = index % 2 === 0;
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`relative mb-16 flex flex-col md:flex-row items-center justify-between ${
-                isLeft ? "md:flex-row-reverse" : ""
-              }`}
-            >
-              <div className="group relative bg-[#1c1c1c] p-6 rounded-xl border border-gray-700 w-full md:w-[45%] overflow-hidden shadow-md hover:shadow-[0_0_20px_6px_rgba(229,9,20,0.4)] transition duration-300">
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-                <h3 className="text-xl md:text-2xl font-bold mb-1 text-white">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-400 mb-1">
-                  {item.company}
-                  {item.location && ` – ${item.location}`}
-                </p>
-                <p className="text-sm italic text-gray-500 mb-3">
-                  {item.period}
-                </p>
-                <ul className="list-disc pl-5 text-sm text-gray-300 space-y-1">
-                  {item.bullets.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
-              </div>
+        {timelineItems
+          .slice()
+          .reverse()
+          .map((item, index) => {
+            const isLeft = index % 2 === 0;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className={`relative mb-16 flex flex-col md:flex-row items-center justify-between ${
+                  isLeft ? "md:flex-row-reverse" : ""
+                }`}
+              >
+                <div className="group relative bg-[#1c1c1c] p-6 rounded-xl border border-gray-700 w-full md:w-[45%] overflow-hidden shadow-md hover:shadow-[0_0_20px_6px_rgba(229,9,20,0.4)] transition duration-300">
+                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
+                  <h3 className="text-xl md:text-2xl font-bold mb-1 text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-400 mb-1">
+                    {item.company}
+                    {item.location && ` – ${item.location}`}
+                  </p>
+                  <p className="text-sm italic text-gray-500 mb-3">
+                    {item.period}
+                  </p>
+                  <ul className="list-disc pl-5 text-sm text-gray-300 space-y-1">
+                    {item.bullets.map((point, i) => (
+                      <li key={i}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
 
-              {/* Timeline Dot Icon */}
-              <div className="hidden md:flex items-center justify-center bg-black border-4 border-[#e50914] text-[#e50914] w-12 h-12 rounded-full absolute top-0 md:top-1/2 md:-translate-y-1/2 left-1/2 -translate-x-1/2 z-10">
-                {item.icon}
-              </div>
-            </motion.div>
-          );
-        })}
+                {/* Timeline Dot Icon */}
+                <div className="hidden md:flex items-center justify-center bg-black border-4 border-[#e50914] text-[#e50914] w-12 h-12 rounded-full absolute top-0 md:top-1/2 md:-translate-y-1/2 left-1/2 -translate-x-1/2 z-10">
+                  {item.icon}
+                </div>
+              </motion.div>
+            );
+          })}
       </div>
     </div>
   );
