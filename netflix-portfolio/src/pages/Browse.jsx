@@ -208,17 +208,19 @@ const Browse = () => {
       <section className="relative px-8 py-10 mt-4">
         <h2 className="text-lg md:text-xl font-bold mb-4">Today's Top Picks</h2>
         <button
-          onClick={() => scroll(scrollRefTop, "left")}
-          className="absolute left-4 top-[60%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+          onClick={() => scroll(scrollRefCurious, "left")}
+          className="absolute left-4 top-[50%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
         >
           <FaChevronLeft />
         </button>
+
         <button
-          onClick={() => scroll(scrollRefTop, "right")}
-          className="absolute right-4 top-[60%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+          onClick={() => scroll(scrollRefCurious, "right")}
+          className="absolute right-4 top-[50%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
         >
           <FaChevronRight />
         </button>
+
         <div
           ref={scrollRefTop}
           className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-8"
@@ -234,16 +236,18 @@ const Browse = () => {
         </h2>
         <button
           onClick={() => scroll(scrollRefCurious, "left")}
-          className="absolute left-4 top-[85%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+          className="absolute left-4 top-[50%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
         >
           <FaChevronLeft />
         </button>
+
         <button
           onClick={() => scroll(scrollRefCurious, "right")}
-          className="absolute right-4 top-[85%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
+          className="absolute right-4 top-[50%] z-10 p-3 bg-[#111] rounded-full hover:bg-[#e50914] transition"
         >
           <FaChevronRight />
         </button>
+
         <div
           ref={scrollRefCurious}
           className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-8"

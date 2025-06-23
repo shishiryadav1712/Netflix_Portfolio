@@ -156,7 +156,7 @@ const Experience = () => {
 
       {/* Timeline Section */}
       <div className="relative z-10 max-w-4xl mx-auto before:absolute before:left-1/2 before:top-0 before:bottom-0 before:w-1 before:bg-[#e50914] before:transform before:-translate-x-1/2">
-        {timelineItems.map((item, index) => {
+        {timelineItems.reverse().map((item, index) => {
           const isLeft = index % 2 === 0;
           return (
             <motion.div
