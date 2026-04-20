@@ -31,16 +31,15 @@ const timelineItems = [
   },
   {
     type: "work",
-    title:
-      "Systems Engineer | Cloud Developer | Microsoft Power Platform, Azure Solutions, and Systems Design",
-    company: "Tata Consultancy Services (TCS)",
-    location: "Kolkata, India",
-    period: "Jul 2021 – Nov 2022",
+    title: "Java Full Stack Developer",
+    company: "Persistent Systems",
+    location: "India",
+    period: "Jan 2021 – Jul 2023",
     bullets: [
-      "Engineered backend workflows using Power Platform, Dataverse, and Azure reducing approval times by 80%.",
-      "Automated reporting (15+ hours saved/week).",
-      "Built 15+ reusable components for deployment speed.",
-      "Improved monitoring pipelines; 20% faster resolution.",
+      "Engineered scalable insurance policy and claims microservices using Java 11, Spring Boot, Spring MVC, REST APIs, Hibernate/JPA, reducing manual claim processing effort by 40% and accelerating settlement timelines across high-volume insurance workflows.",
+      "Implemented secure authentication and authorization layers with Spring Security, OAuth 2.0, JWT, RBAC, ensuring regulatory compliance and protecting sensitive financial and policyholder data for 50K+ concurrent users.",
+      "Designed an event-driven underwriting and risk evaluation pipeline leveraging Apache Kafka, Redis, Spring Cloud, enabling real-time credit risk assessment and improving underwriting decision accuracy by 30%. ",
+      "Automated CI/CD workflows with Jenkins, Maven, Git, unit and integration testing, reducing deployment failures by 45% and ensuring faster, audit-ready releases for enterprise finance platforms. ",
     ],
     icon: <FaBriefcase />,
   },
@@ -53,6 +52,22 @@ const timelineItems = [
       "Courses: Data Mining, OOP, Advanced OS, Networks, Mobile Security, Computer Vision, Cloud Computing.",
     ],
     icon: <FaGraduationCap />,
+  },
+  {
+    type: "work",
+    title: "Java Full Stack Developer",
+    company: "Freddie Mac",
+    location: "USA",
+    period: "Mar 2025 – Present",
+    bullets: [
+      "Architected mortgage loan origination and underwriting services using Java 17, Spring Boot, Spring Cloud, RESTful APIs, enabling straight-through processing for borrower applications and reducing underwriting turnaround time by 32%. ",
+      "Developed regulatory-compliant authorization workflows with Spring Security, OAuth 2.0, JWT, role-based access control, strengthening audit readiness and safeguarding sensitive borrower, credit, and property data. ",
+      "Built reactive and modular user interfaces using Angular 15+, TypeScript, RxJS, NgRx, improving loan officer productivity and accelerating application review workflows by 28%. ",
+      "Implemented asynchronous mortgage event processing with Apache Kafka and message-driven consumers, enabling near real-time propagation of loan status, payment, and delinquency events across downstream risk systems. ",
+      "Optimized large-scale mortgage portfolio data handling using Hibernate/JPA, PostgreSQL, query tuning, batch processing, supporting high-volume loan analytics while reducing reporting execution time by 40%. ",
+      "Deployed and monitored cloud-native applications using Docker, Kubernetes, AWS, CI/CD pipelines, automated testing, improving release reliability and ensuring consistent performance during peak mortgage origination cycles. ",
+    ],
+    icon: <FaBriefcase />,
   },
 ];
 
