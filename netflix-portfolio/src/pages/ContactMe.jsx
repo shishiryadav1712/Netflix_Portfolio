@@ -138,11 +138,11 @@ const ContactMe = () => {
                   </h2>
                   <motion.a
                     whileHover={{ scale: 1.05 }}
-                    href="mailto:shishiryadav1712.work@gmail.com"
+                    href="mailto:shishiryadav.work@gmail.com"
                     className="inline-flex items-center gap-2 bg-[#e50914] text-white font-semibold px-5 py-2 rounded-full transition hover:bg-[#f41c1c]"
                   >
                     <FaEnvelope />
-                    shishiryadav1712.work@gmail.com
+                    shishiryadav.work@gmail.com
                   </motion.a>
                   <div className="text-sm text-gray-400 flex items-center gap-2">
                     <FaPhoneAlt className="text-[#e50914]" />
